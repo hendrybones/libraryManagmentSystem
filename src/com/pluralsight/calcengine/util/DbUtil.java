@@ -23,15 +23,12 @@ public class DbUtil {
             }
             return connection;
 
-            }
+
+    }
     public void closeConnections() throws SQLException {
         statement.close();
         connection.close();
 
-    }
-    public static ResultSet readData(String query) throws SQLException {
-        statement=connection.createStatement();
-        return statement.executeQuery(query);
     }
 
 

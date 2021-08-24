@@ -52,7 +52,7 @@ public class Main {
                 getUserDetails();
                 break;
             case 7:
-                UserLogic.view();
+                UserLogic.search();
                 break;
             case 8:
                 UserLogic.delete();

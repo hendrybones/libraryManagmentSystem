@@ -1,11 +1,13 @@
-package com.pluralsight.calcengine.controller;
+package com.pluralsight.calcengine.Test;
 
+import com.pluralsight.calcengine.controller.BooksLogic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserLogicTest {
+
 
     @Test
     void addUser() {
@@ -23,6 +25,7 @@ class UserLogicTest {
     void delete() {
         Assertions.assertEquals(1,new BooksLogic.delete("us1"));
     }
+
 
     @Test
     void view() {

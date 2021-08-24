@@ -7,11 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Scanner;
 
-public class UserLogic {
+public class UserLogic  {
+
     public static int add(String UserId, String name, String email, String date) {
         int status = 0;
         try {
-
             Connection con = DbUtil.getConnection();
             PreparedStatement ps = con.prepareStatement("insert into Users(UserId,name,email,regDate) values(?,?,?,?)");
             ps.setString(1, UserId);
@@ -25,21 +25,36 @@ public class UserLogic {
         }
         return status;
     }
-    public static boolean search(String UserName)
+public static String search()
     {
-        boolean status=false;
-        try{
-            Connection con=DbUtil.getConnection();
-            PreparedStatement ps=con.prepareStatement("select * from Users where name=?");
-            ps.setString(1,UserName);
-            ResultSet rs=ps.executeQuery();
-            status=rs.next();
-            con.close();
-        }catch(Exception e){System.out.println(e);}
-        return status;
+        String a ="";
+        try (Connection con = DbUtil.getConnection()) {
+            System.out.println("enter UserId");
+            Scanner input = new Scanner(System.in);
+            String UserId = input.nextLine();
+            String sql = "select*from book where UserId=?;";
+            PreparedStatement stmt = con.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            stmt.setString(1, UserId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next() == false) {
+                System.out.println("there is no such record in the database");
+            } else {
+                rs.previous();
+                while (rs.next()) {
+                    a = rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3) + " "+
+                            rs.getString(4) + " " + rs.getString(5);
+                    System.out.println(a);
+                }
+            }
+//            db.closeConnections();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return a;
 
     }
-    public static int delete() {
+
+  public static int delete() {
         int status = 0;
         try {
             Connection con = DbUtil.getConnection();
@@ -60,8 +75,7 @@ public class UserLogic {
         }
         return status;
     }
-    public  static void view(){
 
-    }
+
 
 }
