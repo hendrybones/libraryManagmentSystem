@@ -59,7 +59,7 @@ public class BooksLogic {
     }
     public  static void view() throws SQLException {
         try {
-            ResultSet rs=DbUtil.readData("select * from student");
+            ResultSet rs=DbUtil.readData("select * from book");
             while(rs.next()){
                 String c=rs.getString(1) +" "+ rs.getString(2)+" " +rs.getString(3);
                 System.out.println(c);
