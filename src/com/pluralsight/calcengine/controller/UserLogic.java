@@ -25,13 +25,13 @@ public class UserLogic  {
         }
         return status;
     }
-public static String search()
+public static String search(String UserId)
     {
         String a ="";
         try (Connection con = DbUtil.getConnection()) {
             System.out.println("enter UserId");
             Scanner input = new Scanner(System.in);
-            String UserId = input.nextLine();
+            UserId = input.nextLine();
             String sql = "select*from book where UserId=?;";
             PreparedStatement stmt = con.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             stmt.setString(1, UserId);
@@ -54,13 +54,13 @@ public static String search()
 
     }
 
-  public static int delete() {
+  public static int delete(String userId) {
         int status = 0;
         try {
             Connection con = DbUtil.getConnection();
             Scanner scanner=new Scanner(System.in);
             System.out.println("enter userId to delete");
-            String userId = scanner.nextLine();
+            userId = scanner.nextLine();
             PreparedStatement ps=con.prepareStatement("DELETE FROM users where userId=?");
             ps.setString(1, userId);
             status=ps.executeUpdate();

@@ -42,20 +42,20 @@ public class Main {
 
                 break;
             case 4:
-                BooksLogic.delete();
+                BooksLogic.delete("");
 
                 break;
             case 5:
-                 BooksLogic.search();
+                 BooksLogic.search("");
                 break;
             case 6:
                 getUserDetails();
                 break;
             case 7:
-                UserLogic.search();
+                UserLogic.search("");
                 break;
             case 8:
-                UserLogic.delete();
+                UserLogic.delete("");
             default:
                 System.out.println("select the correct option");
         }

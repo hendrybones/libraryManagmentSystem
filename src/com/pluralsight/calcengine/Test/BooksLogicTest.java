@@ -17,7 +17,7 @@ class BooksLogicTest {
 
     @Test
     void search() {
-        Assertions.assertEquals("bef1", "chalk", "hendry", "jesma publisher", "2-3-2004",new BooksLogic().search("bef1"));
+        Assertions.assertEquals("bef1 ,chalk, hendry, jesma publisher", "2-3-2004",new BooksLogic().search("bef1"));
 
     }
 

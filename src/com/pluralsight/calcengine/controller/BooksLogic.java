@@ -35,15 +35,15 @@ public class BooksLogic {
 
     }
 
-    public static String search() {
+    public static String search(String bookId) {
         String a ="";
         try (Connection con = DbUtil.getConnection()) {
             System.out.println("enter bookId");
             Scanner input = new Scanner(System.in);
-            String inputReg = input.nextLine();
+            bookId = input.nextLine();
             String sql = "select*from book where bookId=?;";
             PreparedStatement stmt = con.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            stmt.setString(1, inputReg);
+            stmt.setString(1, bookId);
             ResultSet rs = stmt.executeQuery();
             if (rs.next() == false) {
                 System.out.println("there is no such record in the database");
@@ -76,12 +76,12 @@ public class BooksLogic {
         }
 
     }
-    public  static int delete(){
+    public  static int delete(String bookId){
         int status= 0;
         try(Connection con = DbUtil.getConnection()) {
             Scanner scanner=new Scanner(System.in);
             System.out.println("enter bookId to delete");
-            String bookId = scanner.nextLine();
+            bookId = scanner.nextLine();
             PreparedStatement ps=con.prepareStatement("DELETE FROM Book where bookId=?");
             ps.setString(1, bookId);
             status=ps.executeUpdate();
