@@ -1,14 +1,12 @@
 package com.pluralsight.calcengine.util;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Properties;
 
 public class DbUtil {
-    private Connection connection;
-    private Statement statement;
+    private static Statement statement;
+    private static Connection connection;
+
 
     public static Connection getConnection() throws ClassNotFoundException, SQLException {
             Connection connection=null;
@@ -30,6 +28,10 @@ public class DbUtil {
         statement.close();
         connection.close();
 
+    }
+    public static ResultSet readData(String query) throws SQLException {
+        statement=connection.createStatement();
+        return statement.executeQuery(query);
     }
 
 

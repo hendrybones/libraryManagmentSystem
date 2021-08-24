@@ -6,6 +6,7 @@ import com.pluralsight.calcengine.models.Books;
 import com.pluralsight.calcengine.models.Users;
 import com.pluralsight.calcengine.util.DbUtil;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,7 +14,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) throws ParseException, SQLException {
         DbUtil db=new DbUtil();
         UserLogic user=new UserLogic();
         int choice=0;
@@ -24,7 +25,8 @@ public class Main {
                 "4. delete book\n" +
                 "5.search book \n" +
                 "6. add users \n" +
-                "7.view users" +
+                "7.view users \n" +
+                "8. delete user\n" +
                 "0. Exit\n");
         Scanner scan=new Scanner(System.in);
         choice=scan.nextInt();
@@ -33,10 +35,10 @@ public class Main {
                 getBookDetails();
                 break;
             case 2:
-                BooksLogic.view();
+               BooksLogic.view();
                 break;
             case 3:
-                BooksLogic.updateBook();
+//                BooksLogic.updateBook();
 
                 break;
             case 4:
@@ -52,6 +54,8 @@ public class Main {
             case 7:
                 UserLogic.view();
                 break;
+            case 8:
+                UserLogic.delete();
             default:
                 System.out.println("select the correct option");
         }

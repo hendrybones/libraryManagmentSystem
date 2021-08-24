@@ -5,6 +5,7 @@ import com.pluralsight.calcengine.util.DbUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class BooksLogic {
@@ -12,13 +13,14 @@ public class BooksLogic {
         int status = 0;
         try {
             Connection con = DbUtil.getConnection();
-            PreparedStatement ps = con.prepareStatement("insert into book(bookId,bookName,author,publisher,quantity) values(?,?,?,?,?)");
+            PreparedStatement ps = con.prepareStatement("insert into book(bookId,bookName,author,publisher,quantinty) values(?,?,?,?,?)");
             ps.setString(1, bookId);
             ps.setString(2, name);
             ps.setString(3, author);
             ps.setString(4, publisher);
             ps.setInt(5, quantity);
             status = ps.executeUpdate();
+            System.out.println("book inserted successfully");
             con.close();
             ps.close();
         } catch (Exception e) {
@@ -28,22 +30,45 @@ public class BooksLogic {
 
     }
 
-    public static boolean search(String bookId) {
-        boolean status = false;
+    public static String search() {
+        String a ="";
         try (Connection con = DbUtil.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("select * from Book where bookId = ?");
-            ps.setString(1, bookId);
-            ResultSet rs = ps.executeQuery();
-            status = rs.next();
-            con.close();
+            System.out.println("enter bookId");
+            Scanner input = new Scanner(System.in);
+            String inputReg = input.nextLine();
+            String sql = "select*from book where bookId=?;";
+            PreparedStatement stmt = con.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            stmt.setString(1, inputReg);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next() == false) {
+                System.out.println("there is no such record in the database");
+            } else {
+                rs.previous();
+                while (rs.next()) {
+                    a = rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3) + " "+
+                            rs.getString(4) + " " + rs.getString(5);
+                    System.out.println(a);
+                }
+            }
+//            db.closeConnections();
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
-        return status;
+        return a;
+
     }
-//    public  static int view(){
-//
-//    }
+    public  static void view() throws SQLException {
+        try {
+            ResultSet rs=DbUtil.readData("select * from student");
+            while(rs.next()){
+                String c=rs.getString(1) +" "+ rs.getString(2)+" " +rs.getString(3);
+                System.out.println(c);
+            }
+        }catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
     public  static int delete(){
         int status= 0;
         try(Connection con = DbUtil.getConnection()) {
@@ -53,7 +78,11 @@ public class BooksLogic {
             PreparedStatement ps=con.prepareStatement("DELETE FROM Book where bookId=?");
             ps.setString(1, bookId);
             status=ps.executeUpdate();
-            ps.
+            if (status > 0) {
+                System.out.println("deleted the record from the database");
+            } else {
+                System.out.println("no such record in the database");
+            }
         }catch(Exception e){System.out.println(e);}
         return status;
 
