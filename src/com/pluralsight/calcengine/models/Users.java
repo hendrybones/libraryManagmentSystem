@@ -1,10 +1,25 @@
 package com.pluralsight.calcengine.models;
 
 public class Users {
+    String userId;
     String name;
-    String password;
     String email;
     String regDate;
+
+    public Users(String userId, String name, String email, String regDate) {
+        this.userId = userId;
+        this.name = name;
+        this.email = email;
+        this.regDate = regDate;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getName() {
         return name;
@@ -12,14 +27,6 @@ public class Users {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getEmail() {
