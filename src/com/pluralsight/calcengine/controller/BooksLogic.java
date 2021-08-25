@@ -94,14 +94,14 @@ public class BooksLogic {
         return status;
 
     }
-    public static int updateBook() {
+    public static int updateBook(String bookId) {
         int status = 0;
         int quantity = 0, issued = 0;
         try {
             Connection con = DbUtil.getConnection();
             Scanner scan =new Scanner(System.in);
             System.out.println("enter the bookId to update");
-           String bookId=scan.nextLine();
+            bookId = scan.nextLine();
             PreparedStatement ps = con.prepareStatement("select quantity,issued from book where bookId=?");
             ps.setString(1, bookId);
             ResultSet rs = ps.executeQuery();

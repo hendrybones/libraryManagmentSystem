@@ -12,7 +12,7 @@ class BooksLogicTest {
     @Test
     void add() {
         Assertions.assertEquals(1,
-               new BooksLogic().add("bef1", "chalk", "hendry", "jesma publisher", 1));
+               new BooksLogic().add("bef6", "rich dad", "charles", "jesma publisher", 1));
     }
 
     @Test
@@ -28,7 +28,7 @@ class BooksLogicTest {
 
     @Test
     void delete() {
-        Assertions.assertEquals(1,new BooksLogic().delete("bef2"));
+        Assertions.assertEquals(1,new BooksLogic().delete("bef5"));
 
     }
 
