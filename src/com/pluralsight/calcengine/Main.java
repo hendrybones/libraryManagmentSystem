@@ -39,11 +39,11 @@ public class Main {
                BooksLogic.view();
                 break;
             case 3:
-//                BooksLogic.updateBook();
+                View.getBookUpdate();
 
                 break;
             case 4:
-                BooksLogic.delete("");
+                View.getBookToDelete();
 
                 break;
             case 5:
@@ -53,10 +53,10 @@ public class Main {
                 View.getUserDetails();
                 break;
             case 7:
-                UserLogic.search("");
+                View.getUserToSearch();
                 break;
             case 8:
-                UserLogic.delete("");
+                View.getUserToDelete();
             default:
                 System.out.println("select the correct option");
         }
