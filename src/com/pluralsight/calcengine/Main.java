@@ -4,6 +4,7 @@ import com.pluralsight.calcengine.controller.BooksLogic;
 import com.pluralsight.calcengine.controller.UserLogic;
 import com.pluralsight.calcengine.models.Books;
 import com.pluralsight.calcengine.models.Users;
+import com.pluralsight.calcengine.ui.View;
 import com.pluralsight.calcengine.util.DbUtil;
 
 import java.sql.SQLException;
@@ -32,7 +33,7 @@ public class Main {
         choice=scan.nextInt();
         switch (choice){
             case 1:
-                getBookDetails();
+                View.getBookDetails();
                 break;
             case 2:
                BooksLogic.view();
@@ -46,10 +47,10 @@ public class Main {
 
                 break;
             case 5:
-                 BooksLogic.search("");
+                 View.getBookSearch();
                 break;
             case 6:
-                getUserDetails();
+                View.getUserDetails();
                 break;
             case 7:
                 UserLogic.search("");
@@ -63,41 +64,8 @@ public class Main {
 
 
     }
-    public static void getBookDetails(){
-        BooksLogic log=new BooksLogic();
-        Scanner scan=new Scanner(System.in);
-        System.out.println("enter bookId");
-        String bookId=scan.nextLine();
-        System.out.println("enter book name");
-        String bookName=scan.nextLine();
-        System.out.println("enter author");
-        String author=scan.nextLine();
-        System.out.println("enter publisher");
-        String publisher=scan.nextLine();
-        System.out.println("enter quantity");
-        int quantity=scan.nextInt();
-        Books b=new Books(bookId,bookName,author,publisher,quantity);
-        log.add(bookId,bookName,author,publisher,quantity);
 
 
-    }
-    public static void getUserDetails() throws ParseException {
-        UserLogic user=new UserLogic();
-        Scanner scan=new Scanner(System.in);
-        System.out.println("enter userId");
-        String userId=scan.nextLine();
-        System.out.println("enter user name");
-        String name=scan.nextLine();
-        System.out.println("enter user email");
-        String email=scan.nextLine();
-        System.out.println("enter date of registration (dd-MM-yyyy)");
-        String date = scan.nextLine();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        Date dateOfBirth = simpleDateFormat.parse(date);
-        Users u=new Users(userId,name,email,date);
-        user.add(userId,name,email,date);
-
-    }
 
 
 }

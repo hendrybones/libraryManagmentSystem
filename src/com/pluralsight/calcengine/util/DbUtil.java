@@ -6,8 +6,6 @@ import java.util.Properties;
 public class DbUtil {
     private static Statement statement;
     private static Connection connection;
-
-
     public static Connection getConnection() throws ClassNotFoundException, SQLException {
             Connection connection=null;
             try {
@@ -22,10 +20,8 @@ public class DbUtil {
                 System.out.println(e);
             }
             return connection;
-
-
     }
-    public void closeConnections() throws SQLException {
+    public static void closeConnections() throws SQLException {
         statement.close();
         connection.close();
 

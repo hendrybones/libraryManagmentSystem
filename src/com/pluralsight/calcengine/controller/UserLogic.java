@@ -29,9 +29,9 @@ public static String search(String UserId)
     {
         String a ="";
         try (Connection con = DbUtil.getConnection()) {
-            System.out.println("enter UserId");
-            Scanner input = new Scanner(System.in);
-            UserId = input.nextLine();
+//            System.out.println("enter UserId");
+//            Scanner input = new Scanner(System.in);
+//            UserId = input.nextLine();
             String sql = "select*from book where UserId=?;";
             PreparedStatement stmt = con.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             stmt.setString(1, UserId);
@@ -46,7 +46,7 @@ public static String search(String UserId)
                     System.out.println(a);
                 }
             }
-//            db.closeConnections();
+            DbUtil.closeConnections();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -58,9 +58,9 @@ public static String search(String UserId)
         int status = 0;
         try {
             Connection con = DbUtil.getConnection();
-            Scanner scanner=new Scanner(System.in);
-            System.out.println("enter userId to delete");
-            userId = scanner.nextLine();
+//            Scanner scanner=new Scanner(System.in);
+//            System.out.println("enter userId to delete");
+//            userId = scanner.nextLine();
             PreparedStatement ps=con.prepareStatement("DELETE FROM users where userId=?");
             ps.setString(1, userId);
             status=ps.executeUpdate();
@@ -75,7 +75,4 @@ public static String search(String UserId)
         }
         return status;
     }
-
-
-
 }
