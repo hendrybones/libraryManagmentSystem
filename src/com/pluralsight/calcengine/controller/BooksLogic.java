@@ -13,17 +13,18 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class BooksLogic {
+//    String bookId, String name, String author, String publisher, int quantity
 
-    public static int add(String bookId, String name, String author, String publisher, int quantity) {
+    public static int add(Books books) {
         int status = 0;
         try {
             Connection con = DbUtil.getConnection();
             PreparedStatement ps = con.prepareStatement("insert into book(bookId,bookName,author,publisher,quantinty) values(?,?,?,?,?)");
-            ps.setString(1, bookId);
-            ps.setString(2, name);
-            ps.setString(3, author);
-            ps.setString(4, publisher);
-            ps.setInt(5, quantity);
+            ps.setString(1, books.getCallNo());
+            ps.setString(2, books.getName());
+            ps.setString(3, books.getAuthor());
+            ps.setString(4, books.getPublisher());
+            ps.setInt(5, books.getQuantity());
             status = ps.executeUpdate();
             System.out.println("book inserted successfully");
             con.close();
@@ -38,9 +39,6 @@ public class BooksLogic {
     public static String search(String bookId) {
         String a ="";
         try (Connection con = DbUtil.getConnection()) {
-//            System.out.println("enter bookId");
-//            Scanner input = new Scanner(System.in);
-//            bookId = input.nextLine();
             String sql = "select*from book where bookId=?;";
             PreparedStatement stmt = con.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             stmt.setString(1, bookId);
@@ -79,9 +77,6 @@ public class BooksLogic {
     public  static int delete(String bookId){
         int status= 0;
         try(Connection con = DbUtil.getConnection()) {
-//            Scanner scanner=new Scanner(System.in);
-//            System.out.println("enter bookId to delete");
-//            bookId = scanner.nextLine();
             PreparedStatement ps=con.prepareStatement("DELETE FROM Book where bookId=?");
             ps.setString(1, bookId);
             status=ps.executeUpdate();
@@ -99,9 +94,6 @@ public class BooksLogic {
         int quantity = 0, issued = 0;
         try {
             Connection con = DbUtil.getConnection();
-//            Scanner scan =new Scanner(System.in);
-//            System.out.println("enter the bookId to update");
-//            bookId = scan.nextLine();
             PreparedStatement ps = con.prepareStatement("select quantity,issued from book where bookId=?");
             ps.setString(1, bookId);
             ResultSet rs = ps.executeQuery();

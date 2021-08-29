@@ -7,13 +7,13 @@ public class Books {
     String publisher;
     int quantity;
 
-    public Books(String callNo, String name, String author, String publisher, int quantity) {
-        CallNo = callNo;
-        this.name = name;
-        this.author = author;
-        this.publisher = publisher;
-        this.quantity = quantity;
-    }
+//    public Books(String callNo, String name, String author, String publisher, int quantity) {
+//        CallNo = callNo;
+//        this.name = name;
+//        this.author = author;
+//        this.publisher = publisher;
+//        this.quantity = quantity;
+//    }
 
     public String getCallNo() {
         return CallNo;

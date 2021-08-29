@@ -6,12 +6,12 @@ public class Users {
     String email;
     String regDate;
 
-    public Users(String userId, String name, String email, String regDate) {
-        this.userId = userId;
-        this.name = name;
-        this.email = email;
-        this.regDate = regDate;
-    }
+//    public Users(String userId, String name, String email, String regDate) {
+//        this.userId = userId;
+//        this.name = name;
+//        this.email = email;
+//        this.regDate = regDate;
+//    }
 
     public String getUserId() {
         return userId;

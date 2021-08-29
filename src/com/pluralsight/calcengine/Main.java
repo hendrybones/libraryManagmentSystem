@@ -16,8 +16,22 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) throws ParseException, SQLException {
-        DbUtil db=new DbUtil();
-        UserLogic user=new UserLogic();
+        int select=0;
+
+        System.out.println("***************user authentication *************************");
+        System.out.println("****************select 1 for login and 2 to register*************");
+        System.out.println("\n1. login\n" +
+                "\n2. registration \n");
+        Scanner scanner=new Scanner(System.in);
+        select=scanner.nextInt();
+        switch (select){
+            case  1:
+                View.userLogin();
+                break;
+            case 2:
+                View.userRegistration();
+        }
+
         int choice=0;
         System.out.println("************Library management system*************************");
         System.out.println("\n1. Add books\n" +
@@ -50,7 +64,7 @@ public class Main {
                  View.getBookSearch();
                 break;
             case 6:
-                View.getUserDetails();
+//              ??  View.getUserDetails();
                 break;
             case 7:
                 View.getUserToSearch();

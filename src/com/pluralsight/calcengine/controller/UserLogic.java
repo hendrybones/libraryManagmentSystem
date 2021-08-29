@@ -1,5 +1,6 @@
 package com.pluralsight.calcengine.controller;
 
+import com.pluralsight.calcengine.models.Users;
 import com.pluralsight.calcengine.util.DbUtil;
 
 import java.sql.Connection;
@@ -8,16 +9,16 @@ import java.sql.ResultSet;
 import java.util.Scanner;
 
 public class UserLogic  {
-
-    public static int add(String UserId, String name, String email, String date) {
+//    String UserId, String name, String email, String date
+    public static int add(Users users) {
         int status = 0;
         try {
             Connection con = DbUtil.getConnection();
             PreparedStatement ps = con.prepareStatement("insert into Users(UserId,name,email,regDate) values(?,?,?,?)");
-            ps.setString(1, UserId);
-            ps.setString(2, name);
-            ps.setString(3, email);
-            ps.setString(4, date);
+            ps.setString(1, users.getUserId());
+            ps.setString(2, users.getName());
+            ps.setString(3, users.getEmail());
+            ps.setString(4, users.getRegDate());
             status = ps.executeUpdate();
             con.close();
         } catch (Exception e) {
@@ -29,9 +30,6 @@ public static String search(String UserId)
     {
         String a ="";
         try (Connection con = DbUtil.getConnection()) {
-//            System.out.println("enter UserId");
-//            Scanner input = new Scanner(System.in);
-//            UserId = input.nextLine();
             String sql = "select*from book where UserId=?;";
             PreparedStatement stmt = con.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             stmt.setString(1, UserId);
@@ -54,15 +52,12 @@ public static String search(String UserId)
 
     }
 
-  public static int delete(String userId) {
+  public static int delete(Users users) {
         int status = 0;
         try {
             Connection con = DbUtil.getConnection();
-//            Scanner scanner=new Scanner(System.in);
-//            System.out.println("enter userId to delete");
-//            userId = scanner.nextLine();
             PreparedStatement ps=con.prepareStatement("DELETE FROM users where userId=?");
-            ps.setString(1, userId);
+            ps.setString(1, users.getUserId());
             status=ps.executeUpdate();
             if (status > 0) {
                 System.out.println("deleted the user from the database");
@@ -75,4 +70,33 @@ public static String search(String UserId)
         }
         return status;
     }
+    public static boolean validate(String name,String password){
+        boolean status=false;
+        try{
+            Connection con=DbUtil.getConnection();
+            PreparedStatement ps=con.prepareStatement("select * from Users where UserName=? and UserPass=?");
+            ps.setString(1,name);
+            ps.setString(2,password);
+            ResultSet rs=ps.executeQuery();
+            status=rs.next();
+            con.close();
+        }catch(Exception e){System.out.println(e);}
+        return status;
+    }
+    public static boolean CheckIfAlready(String UserName)
+    {
+        boolean status=false;
+        try{
+            Connection con=DbUtil.getConnection();
+            PreparedStatement ps=con.prepareStatement("select * from Users where UserName=?");
+            ps.setString(1,UserName);
+            ResultSet rs=ps.executeQuery();
+            status=rs.next();
+            con.close();
+        }catch(Exception e){System.out.println(e);}
+        return status;
+
+    }
+
+
 }
